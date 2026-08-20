@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Topics - YT Shorts Automation{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <h1>Topics</h1>
+    <a class="btn" href="{{ url_for('topics.new_topic') }}">Add topic</a>
+  </div>
+
+  {% if topics %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Style / Tone</th>
+          <th>Duration</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for topic in topics %}
+          <tr>
+            <td>{{ topic.name }}</td>
+            <td>{{ topic.style or '-' }} / {{ topic.tone or '-' }}</td>
+            <td>{{ topic.duration_seconds }}s</td>
+            <td>
+              {% if topic.active %}
+                <span class="pill pill-ok">active</span>
+              {% else %}
+                <span class="pill pill-warn">inactive</span>
+              {% endif %}
+            </td>
+            <td>
+              <a class="btn btn-secondary btn-small" href="{{ url_for('topics.edit_topic', topic_id=topic.id) }}">Edit</a>
+              <form class="inline-form" method="post" action="{{ url_for('topics.toggle_topic', topic_id=topic.id) }}">
+                <button type="submit" class="btn btn-secondary btn-small">
+                  {{ 'Disable' if topic.active else 'Enable' }}
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty-state">No topics yet. Add one to get started.</p>
+  {% endif %}
+{% endblock %}

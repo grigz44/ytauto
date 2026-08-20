@@ -65,14 +65,30 @@ before waiting for the weekly schedule.
 
 Once all four are checked, Phase 2 (dashboard shell + Topics CRUD) starts.
 
+## Phase 2 — Dashboard shell
+
+`/topics`, `/settings`, `/shorts`, and `/youtube` are live, backed by the real
+tables. Topics support add/edit/enable/disable (soft delete — `active=false`,
+never a hard delete). YouTube OAuth and the Shorts approve/reject actions are
+stubs until Phase 3 and Phase 8 respectively.
+
 ## Local development
 
 ```
 python -m venv .venv
 .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 copy .env.example .env   # fill in DATABASE_URL
 python -m app.main
 ```
 
 Visit http://localhost:5000.
+
+## Running tests
+
+```
+pytest tests/
+```
+
+Tests mock the database connection/cursor, so no live Supabase connection is
+needed to run them.

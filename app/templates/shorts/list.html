@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Shorts - YT Shorts Automation{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <h1>Shorts</h1>
+  </div>
+
+  {% if shorts %}
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for short in shorts %}
+          <tr>
+            <td>{{ short.title or '(untitled)' }}</td>
+            <td>
+              {% if short.status == 'published' %}
+                <span class="pill pill-ok">published</span>
+              {% elif short.status == 'failed' %}
+                <span class="pill pill-error">failed</span>
+              {% else %}
+                <span class="pill pill-warn">{{ short.status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ short.created_at }}</td>
+            <td><a class="btn btn-secondary btn-small" href="{{ url_for('shorts.short_detail', short_id=short.id) }}">View</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty-state">No shorts generated yet. This fills in once the pipeline is running (Phase 6+).</p>
+  {% endif %}
+{% endblock %}

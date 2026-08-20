@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ short.title or 'Short' }} - YT Shorts Automation{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <h1>{{ short.title or '(untitled)' }}</h1>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h2>Status</h2>
+      {% if short.status == 'published' %}
+        <span class="pill pill-ok">published</span>
+      {% elif short.status == 'failed' %}
+        <span class="pill pill-error">failed</span>
+      {% else %}
+        <span class="pill pill-warn">{{ short.status }}</span>
+      {% endif %}
+      {% if short.failure_reason %}
+        <p>{{ short.failure_reason }}</p>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <h2>YouTube</h2>
+      <p>{{ short.youtube_video_id or 'not uploaded yet' }}</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <h2>Script</h2>
+    <p>{{ short.script or '-' }}</p>
+  </div>
+
+  <div class="card" style="margin-top: 16px;">
+    <h2>Description</h2>
+    <p>{{ short.description or '-' }}</p>
+  </div>
+
+  <div class="form-actions" style="margin-top: 20px;">
+    <button class="btn" disabled title="Wired up in Phase 8">Approve</button>
+    <button class="btn btn-secondary" disabled title="Wired up in Phase 8">Reject</button>
+  </div>
+{% endblock %}

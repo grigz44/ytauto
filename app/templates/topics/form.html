@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if topic else 'Add' }} Topic - YT Shorts Automation{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <h1>{{ 'Edit topic' if topic else 'Add topic' }}</h1>
+  </div>
+
+  <form class="stack" method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="{{ topic.name if topic else '' }}" required>
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description">{{ topic.description if topic else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="style">Style</label>
+      <input type="text" id="style" name="style" value="{{ topic.style if topic else '' }}" placeholder="e.g. documentary, listicle">
+    </div>
+
+    <div class="field">
+      <label for="tone">Tone</label>
+      <input type="text" id="tone" name="tone" value="{{ topic.tone if topic else '' }}" placeholder="e.g. engaging, calm">
+    </div>
+
+    <div class="field">
+      <label for="duration_seconds">Duration (seconds)</label>
+      <input type="number" id="duration_seconds" name="duration_seconds" min="1"
+             value="{{ topic.duration_seconds if topic else 40 }}">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">{{ 'Save changes' if topic else 'Add topic' }}</button>
+      <a class="btn btn-secondary" href="{{ url_for('topics.list_topics') }}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

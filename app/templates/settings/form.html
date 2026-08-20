@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Settings - YT Shorts Automation{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <h1>Settings</h1>
+  </div>
+
+  <form class="stack" method="post">
+    <div class="field">
+      <label for="language">Language</label>
+      <input type="text" id="language" name="language" value="{{ settings.language }}">
+    </div>
+
+    <div class="field">
+      <label for="tone">Default tone</label>
+      <input type="text" id="tone" name="tone" value="{{ settings.tone }}">
+    </div>
+
+    <div class="field">
+      <label for="default_duration_seconds">Default duration (seconds)</label>
+      <input type="number" id="default_duration_seconds" name="default_duration_seconds" min="1"
+             value="{{ settings.default_duration_seconds }}">
+    </div>
+
+    <div class="field">
+      <label for="daily_limit">Daily limit</label>
+      <input type="number" id="daily_limit" name="daily_limit" min="1" value="{{ settings.daily_limit }}">
+    </div>
+
+    <div class="field">
+      <label for="publish_time">Publish time (HH:MM)</label>
+      <input type="text" id="publish_time" name="publish_time" value="{{ settings.publish_time }}">
+    </div>
+
+    <div class="field">
+      <label for="timezone">Timezone</label>
+      <input type="text" id="timezone" name="timezone" value="{{ settings.timezone }}">
+    </div>
+
+    <div class="field checkbox-field">
+      <input type="checkbox" id="auto_publish" name="auto_publish" {{ 'checked' if settings.auto_publish else '' }}>
+      <label for="auto_publish">Auto-publish (uploads without manual approval)</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn">Save settings</button>
+    </div>
+  </form>
+{% endblock %}
